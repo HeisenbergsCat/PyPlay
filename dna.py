@@ -29,9 +29,10 @@ def is_criminal(dna_sample):
   if num_matches >= 3:
     print "We have %s number of matches" %(num_matches)
   else:
-    print "Let that one go!"
+    print "No significant matches found, moce on"
 
 is_criminal("suspect1.txt")
 is_criminal("suspect2.txt")
 is_criimnal("suspect3.txt")
-    
+
+# hahaha
