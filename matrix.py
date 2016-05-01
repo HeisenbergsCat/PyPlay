@@ -73,3 +73,7 @@ while pos[0] != len(test_level) - 1 and pos[1] != len(test_level) - 1:
 	def test_function():
 		#jakas funkcja dodana
 		return
+
+	def kolejna():
+		#dodajmy jeszcze jedna funkcje
+		return
