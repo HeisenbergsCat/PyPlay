@@ -48,19 +48,19 @@ while pos[0] != len(test_level) - 1 and pos[1] != len(test_level) - 1:
 	coin = coin_toss(4)
 	if coin == 0:
 		pos[1] += 1
-		test_level[pos[0]][pos[1]] = "!"
+		test_level[pos[0]][pos[1]] = "@"
 		i += 1
 	elif coin == 1:
 		pos[0] += 1
-		test_level[pos[0]][pos[1]] = "@"
+		test_level[pos[0]][pos[1]] = "^"
 		i += 1
 	elif coin == 2:
 		pos[0] -= 1
-		test_level[pos[0]][pos[1]] = "#"
+		test_level[pos[0]][pos[1]] = "*"
 		i += 1
 	elif coin == 3:
 		pos[1] -= 1
-		test_level[pos[0]][pos[1]] = "$"
+		test_level[pos[0]][pos[1]] = "%"
 		i += 1
 	else:
 		break
@@ -69,3 +69,7 @@ while pos[0] != len(test_level) - 1 and pos[1] != len(test_level) - 1:
 	display_matrix(test_level)
 	print pos
 	print "steps: " + str(i)
+
+	def test_function():
+		#jakas funkcja dodana
+		return
