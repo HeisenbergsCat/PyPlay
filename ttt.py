@@ -20,14 +20,14 @@ def display_board(board):
     os.system("clear")
     for row in board:
         print " ".join(row)
-		
+
 def update_board(level, pos, mark):
-	level[pos[0]][pos[1]] = mark	
+	level[pos[0]][pos[1]] = mark
 	return level
 
-		
+
 # ERROR HANDLING
-		
+
 def input_check(rowcol):
 	pos_inputs = ["0", "1", "2"]
 	errorcheck = False
@@ -47,9 +47,9 @@ def coll_chek(level, pos):
 		return False
 	else:
 		return True
-	
+
 # INPUT HANDLING
-	
+
 def ask_pos(player):
 	if player == "X":
 		print "Teraz gra X"
@@ -63,8 +63,29 @@ def ask_pos(player):
 
 # GAME CONDITIONS
 
+def check_col(level, pos):
+    check_result =[]
+    for i in range(0, len(level)):
+        check_result.append(level[i][pos[0]])
+    return "".join(check_result)
+
+def check_row(level, pos):
+    check_result =[]
+    for i in range(0, len(level)):
+        check_result.append(level[pos[1]][i])
+    return "".join(check_result)
+
+def check_diag(level, pos):
+    return "",join(check_result)
+
 def check_win(level, pos):
-	return False
+    win_conds = ["xxx", "ooo"]
+    if check_col(level, pos) in win_conds:
+        return True
+    elif check_row(level, pos) in win_conds:
+        return True
+    else:
+        return False
 
 def game_ending(cond):
 	if cond == "draw":
@@ -81,61 +102,70 @@ def game_ending(cond):
 		quit()
 
 # EXECUTION
-		
+
 def main_game():
-	
+
 	# initial
 	rounds = 1
 	mark = "X"
 	level = gen_board()
 	display_board(level)
-	
+
 	# petla zliczajaca ruchy
 	while rounds < 10:
-		
+
+# X LOOP
 		error_check = True
 		if mark == "X":
 			while error_check == True:
 				pos_x = ask_pos("X")
 				error_check = coll_chek(level, pos_x)
 				display_board(level)
-				
 			if error_check == False:
 				rounds += 1
 				print "Nastepny gracz!"
+
 			#time.sleep(1)
 			level = update_board(level, pos_x, mark)
 			display_board(level)
-			
+
 			if check_win(level, pos_x) == True:
-				print "The X wins"
-				game_ending("xwin")
-			else:
+                game_ending("xwin")
+            else:
 				mark = "O"
 				if rounds == 10:
 					game_ending("draw")
-				
+# O LOOP
 		error_check = True
 		if mark == "O":
 			while error_check == True:
 				pos_o = ask_pos("O")
 				error_check = coll_chek(level, pos_o)
 				display_board(level)
-				
+
 			if error_check == False:
 				rounds += 1
 				print "Nastepny gracz"
 			#time.sleep(1)
-			
+
 			level = update_board(level, pos_o, mark)
 			display_board(level)
-			
+
 			if check_win(level, pos_o) == True:
 				game_ending("owin")
 			else:
 				mark = "X"
 				if rounds == 10:
 					game_ending("draw")
-					
-main_game()
 
+'''
+test_level = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
+test_pos = [2, 2]
+
+display_board(test_level)
+print ""
+print check_col(test_level, test_pos)
+print check_row(test_level, test_pos)
+'''
+
+# main_game()
