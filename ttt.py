@@ -31,11 +31,17 @@ def display_board(board):
     for row in board:
         print "   ".join(row)
 
++def ask_pos(player):
++    if player == "X":
++        print "Teraz gra X"
+       pos_row = raw_input("Podaj wierz (0-2): "
+			pos_col = raw_input("Podaj kolumne (0-2): ")
+		if player = "O":
+			print "Teraz gra O"
+			pos_row = raw_input("Podaj wierz (0-2): "
+			pos_col = raw_input("Podaj kolumne (0-2): ")
+		return (pos_row, pos_col)
 
-def ask_pos(player):
-    if player == "X":
-        print "Teraz gra X:"
-        pos_row = raw_input("")
 
 level = gen_board()
 
