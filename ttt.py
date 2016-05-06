@@ -32,16 +32,16 @@ def display_board(board):
         print "   ".join(row)
 
 def ask_pos(player):
-	#wczytywanie pozycji
 	if player == "X":
-        print "Teraz gra X"
-        pos_row = raw_input("Podaj wierz (0-2): "
-        pos_col = raw_input("Podaj kolumne (0-2): ")
-	elif player = "O":
-        print "Teraz gra O"
-        pos_row = raw_input("Podaj wierz (0-2): "
-        pos_col = raw_input("Podaj kolumne (0-2): ")
-    return (pos_row, pos_col)
+		print "Teraz gra X"
+		pos_row = raw_input("Podaj wierz (0-2): ")
+		pos_col = raw_input("Podaj kolumne (0-2): ")
+	elif player == "O":
+		print "Teraz gra O"
+		pos_row = raw_input("Podaj wierz (0-2): ")
+		pos_col = raw_input("Podaj kolumne (0-2): ")
+		
+	return (int(pos_row), int(pos_col))
 
 
 level = gen_board()
@@ -68,5 +68,5 @@ def main_game():
                 rounds -= 1
                 mark = "X"
 
-ask_pos("X")
-display_board(level)
+pos = ask_pos("X")
+print pos
