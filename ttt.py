@@ -71,6 +71,14 @@ def game_ending(cond):
 		print "REMIS"
 		time.sleep(1)
 		quit()
+	elif cond == "xwin":
+		print "X Wygralo!"
+		time.sleep(1)
+		quit()
+	elif cond == "owin":
+		print "O Wygralo!"
+		time.sleep(1)
+		quit()
 
 # EXECUTION
 		
@@ -88,7 +96,6 @@ def main_game():
 		error_check = True
 		if mark == "X":
 			while error_check == True:
-				print "Runda %s" % rounds
 				pos_x = ask_pos("X")
 				error_check = coll_chek(level, pos_x)
 				display_board(level)
@@ -102,7 +109,7 @@ def main_game():
 			
 			if check_win(level, pos_x) == True:
 				print "The X wins"
-				rounds = 0
+				game_ending("xwin")
 			else:
 				mark = "O"
 				if rounds == 10:
@@ -111,7 +118,6 @@ def main_game():
 		error_check = True
 		if mark == "O":
 			while error_check == True:
-				print "Runda %s" % rounds
 				pos_o = ask_pos("O")
 				error_check = coll_chek(level, pos_o)
 				display_board(level)
@@ -125,8 +131,7 @@ def main_game():
 			display_board(level)
 			
 			if check_win(level, pos_o) == True:
-				print "The O wins"
-				rounds = 0
+				game_ending("owin")
 			else:
 				mark = "X"
 				if rounds == 10:
