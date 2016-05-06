@@ -31,42 +31,41 @@ def display_board(board):
     for row in board:
         print "   ".join(row)
 
-+def ask_pos(player):
-+    if player == "X":
-+        print "Teraz gra X"
-       pos_row = raw_input("Podaj wierz (0-2): "
-			pos_col = raw_input("Podaj kolumne (0-2): ")
-		if player = "O":
-			print "Teraz gra O"
-			pos_row = raw_input("Podaj wierz (0-2): "
-			pos_col = raw_input("Podaj kolumne (0-2): ")
-		return (pos_row, pos_col)
+def ask_pos(player):
+    if player == "X":
+        print "Teraz gra X"
+        pos_row = raw_input("Podaj wierz (0-2): "
+        pos_col = raw_input("Podaj kolumne (0-2): ")
+	elif player = "O":
+        print "Teraz gra O"
+        pos_row = raw_input("Podaj wierz (0-2): "
+        pos_col = raw_input("Podaj kolumne (0-2): ")
+    return (pos_row, pos_col)
 
 
 level = gen_board()
 
-'''
-rounds = 9
-while rounds > 0:
-    if mark == "X":
-        pos_x = ask_pos("X")
-        update_board(pos_x)
-        if check_win(pos_x) == True:
-            print "The X wins"
-            rounds = 0
-        else:
-            rounds -= 1
-            mark = "O"
-    if mark == "O":
-        pos_o = ask_pos("O")
-        update_board(pos_o)
-        if check_win(pos_o) == True:
-            print "Tho O wins"
-            rounds = 0
-        else:
-            rounds -= 1
-            mark = "X"
-'''
+def main_game():
+    rounds = 9
+    while rounds > 0:
+        if mark == "X":
+            pos_x = ask_pos("X")
+            update_board(pos_x)
+            if check_win(pos_x) == True:
+                print "The X wins"
+                rounds = 0
+            else:
+                rounds -= 1
+                mark = "O"
+        if mark == "O":
+            pos_o = ask_pos("O")
+            update_board(pos_o)
+            if check_win(pos_o) == True:
+                print "Tho O wins"
+                rounds = 0
+            else:
+                rounds -= 1
+                mark = "X"
 
 ask_pos("X")
 display_board(level)
