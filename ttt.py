@@ -32,7 +32,8 @@ def display_board(board):
         print "   ".join(row)
 
 def ask_pos(player):
-    if player == "X":
+	#wczytywanie pozycji
+	if player == "X":
         print "Teraz gra X"
         pos_row = raw_input("Podaj wierz (0-2): "
         pos_col = raw_input("Podaj kolumne (0-2): ")
