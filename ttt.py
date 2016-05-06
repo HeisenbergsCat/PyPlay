@@ -40,7 +40,7 @@ def ask_pos(player):
 		print "Teraz gra O"
 		pos_row = raw_input("Podaj wierz (0-2): ")
 		pos_col = raw_input("Podaj kolumne (0-2): ")
-		
+
 	return (int(pos_row), int(pos_col))
 
 
