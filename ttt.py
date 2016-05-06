@@ -102,7 +102,7 @@ def main_game():
 				
 			if error_check == False:
 				rounds += 1
-				print "Nastepny gracz"
+				print "Nastepny gracz!"
 			#time.sleep(1)
 			level = update_board(level, pos_x, mark)
 			display_board(level)
