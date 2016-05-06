@@ -1,18 +1,8 @@
 import os
 import random
+import time
 
-def gen_random_row():
-    row = []
-    for i in range(0,3):
-        randomtoss = str(random.randrange(-1,2))
-        if randomtoss == "-1":
-            randomtoss = "."
-        elif randomtoss == "0":
-            randomtoss = "O"
-        elif randomtoss == "1":
-            randomtoss = "X"
-        row.append(randomtoss)
-    return row
+# LEVEL GENERATING AND UPDATING
 
 def gen_row():
     row = []
@@ -29,44 +19,123 @@ def gen_board():
 def display_board(board):
     os.system("clear")
     for row in board:
-        print "   ".join(row)
+        print " ".join(row)
+		
+def update_board(level, pos, mark):
+	level[pos[0]][pos[1]] = mark	
+	return level
 
-+def ask_pos(player):
-+    if player == "X":
-+        print "Teraz gra X"
-       pos_row = raw_input("Podaj wierz (0-2): "
-			pos_col = raw_input("Podaj kolumne (0-2): ")
-		if player = "O":
-			print "Teraz gra O"
-			pos_row = raw_input("Podaj wierz (0-2): "
-			pos_col = raw_input("Podaj kolumne (0-2): ")
-		return (pos_row, pos_col)
+		
+# ERROR HANDLING
+		
+def input_check(rowcol):
+	pos_inputs = ["0", "1", "2"]
+	errorcheck = False
+	while errorcheck == False:
+		print rowcol
+		input_val = raw_input("Podaj wartosc (1-3): ")
+		if input_val =="q":
+			quit()
+		elif  str(int(input_val) - 1) in pos_inputs:
+			errorcheck = True
+		else:
+			print "Gupek! Jeszcze raz! "
+	return str(int(input_val) - 1)
 
+def coll_chek(level, pos):
+	if level[pos[0]][pos[1]] == ".":
+		return False
+	else:
+		return True
+	
+# INPUT HANDLING
+	
+def ask_pos(player):
+	if player == "X":
+		print "Teraz gra X"
+		pos_row = input_check("Wiersz")
+		pos_col = input_check("Kolumna")
+	elif player == "O":
+		print "Teraz gra O"
+		pos_row = input_check("Wiersz")
+		pos_col = input_check("Kolumna")
+	return [int(pos_row), int(pos_col)]
 
-level = gen_board()
+# GAME CONDITIONS
 
-'''
-rounds = 9
-while rounds > 0:
-    if mark == "X":
-        pos_x = ask_pos("X")
-        update_board(pos_x)
-        if check_win(pos_x) == True:
-            print "The X wins"
-            rounds = 0
-        else:
-            rounds -= 1
-            mark = "O"
-    if mark == "O":
-        pos_o = ask_pos("O")
-        update_board(pos_o)
-        if check_win(pos_o) == True:
-            print "Tho O wins"
-            rounds = 0
-        else:
-            rounds -= 1
-            mark = "X"
-'''
+def check_win(level, pos):
+	return False
 
-ask_pos("X")
-display_board(level)
+def game_ending(cond):
+	if cond == "draw":
+		print "REMIS"
+		time.sleep(1)
+		quit()
+	elif cond == "xwin":
+		print "X Wygralo!"
+		time.sleep(1)
+		quit()
+	elif cond == "owin":
+		print "O Wygralo!"
+		time.sleep(1)
+		quit()
+
+# EXECUTION
+		
+def main_game():
+	
+	# initial
+	rounds = 1
+	mark = "X"
+	level = gen_board()
+	display_board(level)
+	
+	# petla zliczajaca ruchy
+	while rounds < 10:
+		
+		error_check = True
+		if mark == "X":
+			while error_check == True:
+				pos_x = ask_pos("X")
+				error_check = coll_chek(level, pos_x)
+				display_board(level)
+				
+			if error_check == False:
+				rounds += 1
+				print "Nastepny gracz!"
+			#time.sleep(1)
+			level = update_board(level, pos_x, mark)
+			display_board(level)
+			
+			if check_win(level, pos_x) == True:
+				print "The X wins"
+				game_ending("xwin")
+			else:
+				mark = "O"
+				if rounds == 10:
+					game_ending("draw")
+				
+		error_check = True
+		if mark == "O":
+			while error_check == True:
+				pos_o = ask_pos("O")
+				error_check = coll_chek(level, pos_o)
+				display_board(level)
+				
+			if error_check == False:
+				rounds += 1
+				print "Nastepny gracz"
+			#time.sleep(1)
+			
+			level = update_board(level, pos_o, mark)
+			display_board(level)
+			
+			if check_win(level, pos_o) == True:
+				game_ending("owin")
+			else:
+				mark = "X"
+				if rounds == 10:
+					game_ending("draw")
+					
+main_game()
+
