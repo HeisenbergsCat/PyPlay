@@ -16,10 +16,12 @@ def gen_board():
         board.append(gen_row())
     return board
 
-def display_board(board):
-    os.system("clear")
-    for row in board:
-        print " ".join(row)
+def display_board(board, roundnum, player):
+	os.system("clear")
+	for row in board:
+		print " ".join(row)
+	print "Runda %s" % roundnum
+	print "Teraz gra %s" % player
 
 def update_board(level, mark):
 	error_check = True
@@ -32,7 +34,7 @@ def update_board(level, mark):
 			os.system("clear")
 			print "Tam juz cos jest!"
 			time.sleep(0.8)
-			display_board(level)
+			#display_board(level, roundnum)
 	return level
 
 
@@ -55,7 +57,7 @@ def input_check(rowcol, level):
 			os.system("clear")
 			print "Gupek! Jeszcze raz! "
 			time.sleep(0.8)
-			display_board(level)
+			#display_board(level)
 	return str(int(input_val) - 1)
 
 def coll_check(level, pos):
@@ -68,11 +70,9 @@ def coll_check(level, pos):
 
 def ask_pos(player, level):
 	if player == "X":
-		print "Teraz gra X"
 		pos_row = input_check("Wiersz", level)
 		pos_col = input_check("Kolumna", level)
 	elif player == "O":
-		print "Teraz gra O"
 		pos_row = input_check("Wiersz", level)
 		pos_col = input_check("Kolumna", level)
 	return [int(pos_row), int(pos_col)]
@@ -126,10 +126,11 @@ def main_game():
 	rounds = 1
 	player = "O"
 	level = gen_board()
-	display_board(level)
+	display_board(level, rounds, player)
 	
 	while rounds < 10:
 		# round initialize
+		rounds += 1
 		player_count = round(level, player, rounds)
 		# switching players conditions
 		if player_count == "O":
@@ -137,16 +138,14 @@ def main_game():
 		elif player_count =="X":
 			player = "O"
 		# next round
-		rounds += 1
 		if rounds == 10:
 			game_ending("draw")
 	
 	
 def round(level, player, roundnum):
 	
-	print "Runda %s" % roundnum
 	update_board(level, player)
-	display_board(level)
+	display_board(level, roundnum, player)
 	return player
 
 
