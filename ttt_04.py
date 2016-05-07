@@ -67,10 +67,11 @@ def coll_check(level, pos):
 
 # INPUT HANDLING
 
-def ask_input():
+def ask_input(inpvar):
 	errorcheck = False
 	while errorcheck == False:
-		rowcol = raw_input("Podaj wiersz (1-3): ")
+		inp_string = "Podaj %s (1-3): " % inpvar
+		rowcol = raw_input(inp_string)
 		if rowcol == "q":
 			game_quit()
 		elif input_check(rowcol) == True:
@@ -82,33 +83,39 @@ def ask_input():
 			error_msg(error)
 			
 def ask_pos():
-	pos_row = ask_input()
-	pos_col = ask_input()
+	pos_row = ask_input("wiersz")
+	pos_col = ask_input("kolumne")
 	return [int(pos_row), int(pos_col)]
 
 # GAME CONDITIONS
 
-def check_col(level, pos):
-    check_result =[]
-    for i in range(0, len(level)):
-        check_result.append(level[i][pos[0]])
-    return "".join(check_result)
+def analyze_level(level):
+	result = ""
+	output = []
+	diaga = level[0][0] + level[1][1] + level[2][2]
+	diagb = level[0][2] + level[1][1] + level[2][0]
+	for j in range(0,3):
+		for i in range(0,3):
+			result = result + level[j][i]
+			
+	for j in range(0,3):
+		for i in range(0,3):
+			result = result + level[i][j]
+			
+	for k in range(0, 16, 3):
+		output.append(result[k:k+3])
+	output.append(diaga)
+	output.append(diagb)
+	return output
+		
 
-def check_row(level, pos):
-    check_result =[]
-    for i in range(0, len(level)):
-        check_result.append(level[pos[1]][i])
-    return "".join(check_result)
-
-def check_diag(level, pos):
-    return "",join(check_result)
-
-def check_win(level, pos):
+def check_win(level):
 	win_conds = ["XXX", "OOO"]
-	if check_col(level, pos) in win_conds:
-		return True
-	elif check_row(level, pos) in win_conds:
-		return True
+	level_stat = analyze_level(level)
+	if win_conds[0] in level_stat:
+		return "xwin"
+	elif win_conds[1] in level_stat:
+		return "owin"
 	else:
 		return False
 
@@ -134,6 +141,10 @@ def game_status(roundnum, player):
 # EXECUTION
 
 def main_game():
+	
+	print "TIC TAC TOE!"
+	time.sleep(1)
+	os.system("clear")
 
 	# initial
 	rounds = 1
@@ -161,6 +172,7 @@ def round(level, player, roundnum):
 	game_status(roundnum, player)
 	update_board(level, roundnum, player)
 	display_board(level, roundnum, player)
+	game_ending(check_win(level))
 	
 	
 	return player
