@@ -20,16 +20,6 @@ def display_board(board, roundnum, player):
 	os.system("clear")
 	for row in board:
 		print " ".join(row)
-	
-def error_msg(error_type):
-	if error_type == "collision":
-		print "Tam juz cos jest!"
-		time.sleep(0.8)
-	if error_type == "wronginput":
-		print "Gupek! Jeszcze raz! "
-		time.sleep(0.8)
-		
-		
 
 def update_board(level, roundnum, player):
 	error_check = True
@@ -42,7 +32,6 @@ def update_board(level, roundnum, player):
 			error = "collision"
 			error_msg(error)
 	return level
-
 
 # ERROR HANDLING
 
@@ -64,7 +53,15 @@ def coll_check(level, pos):
 		return False
 	else:
 		return True
-
+	
+def error_msg(error_type):
+	if error_type == "collision":
+		print "Tam juz cos jest!"
+		time.sleep(0.8)
+	if error_type == "wronginput":
+		print "Gupek! Jeszcze raz! "
+		time.sleep(0.8)
+	
 # INPUT HANDLING
 
 def ask_input(inpvar):
@@ -166,14 +163,12 @@ def main_game():
 		if rounds == 10:
 			game_ending("draw")
 	
-	
 def round(level, player, roundnum):
 	
 	game_status(roundnum, player)
 	update_board(level, roundnum, player)
 	display_board(level, roundnum, player)
 	game_ending(check_win(level))
-	
 	
 	return player
 
