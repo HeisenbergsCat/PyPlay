@@ -157,24 +157,26 @@ def round(level, player, roundnum):
 def main_game():
 	# initial
 	rounds = 1
-	player = "O"
+	player = "X"
 	level = gen_board()
+	winround = 0
 	#display_board(level, rounds, player)
 	
 	while rounds < 10:	
-		# round initialize
+		
 		player_count = round(level, player, rounds)
-		# switching players conditions
 		
 		if player_count[0] == "O":
 			player = "X"
 			if player_count[1] == "owin" or player_count[1] == "xwin":
+				winround = rounds
 				break
 			else:
 				rounds += 1
 		elif player_count[0] =="X":
 			player = "O"
 			if player_count[1] == "owin" or player_count[1] == "xwin":
+				winround = rounds
 				break
 			else:
 				rounds += 1
@@ -182,31 +184,26 @@ def main_game():
 		elif rounds == 10:
 			game_ending("draw")
 	
-	return [player_count[1], player_count[2]]
+	return [player_count[1], winround,  player_count[2],]
 
 database = []
 temp = []
 
 i = 0
-while i < 100:
+while i < 666:
 	temp = main_game()
 	if temp not in database:
 		database.append(temp)
 		i +=1
 	elif temp in database:
 		pass
-		#print database
-		#print len(database)
-		#time.sleep(0.1)
-		
 	
 	
-#print database
 xwins = 0
 owins = 0
 draws = 0
 for i in range(0, len(database) - 1):
-	print database[i][0] + " " + str(database[i][1])
+	print database[i][0] + " " + str(database[i][1]) + " " + str(database[i][2])
 	if database[i][0] == "xwin":
 		xwins += 1
 	elif database[i][0] == "owin":
