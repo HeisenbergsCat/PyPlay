@@ -25,11 +25,9 @@ def display_board(board, roundnum, player):
 	
 def error_msg(error_type):
 	if error_type == "collision":
-		os.system("clear")
 		print "Tam juz cos jest!"
 		time.sleep(0.8)
 	if error_type == "wronginput":
-		os.system("clear")
 		print "Gupek! Jeszcze raz! "
 		time.sleep(0.8)
 		
@@ -65,7 +63,8 @@ def input_check(rowcol, level):
 			errorcheck = True
 		else:
 			error = "wronginput"
-			return error
+			error_msg(error)
+			
 	return str(int(input_val) - 1)
 
 def coll_check(level, pos):
