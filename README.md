@@ -1,3 +1,0 @@
-# PyPlay
-Python Experiments
-hello
